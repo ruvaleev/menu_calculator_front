@@ -1,0 +1,26 @@
+{
+  "ru": {
+    "translation": {
+      "change language": "English",
+      "create area placeholder": "Создать цель или сферу жизни...",
+      "create todo placeholder": "Создать задачу...",
+      "demo mode": "Демо Режим",
+      "demo mode message": "Вы находитесь в Демо Режиме",
+      "email": "Email...",
+      "log out": "Выйти",
+      "no areas": "Создайте сферы жизни или цели, в которых вы будете создавать и выполнять задачи...",
+      "password": "Пароль...",
+      "planner": "Планировщик",
+      "sign in": "Войти",
+      "sign up": "Зарегистрироваться",
+      "submit": "Подтвердить",
+      "e": {
+        "response is undefined": "Сервер недоступен, попробуйте позже..."
+      },
+      "error": {
+        "response is undefined": "Сервер недоступен, попробуйте позже...",
+        "unauthenticated": "Вы не авторизованы"
+      }
+    }
+  }
+}

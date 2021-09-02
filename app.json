@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.js",
     "name": "menu_calculator_front",
     "slug": "menu_calculator_front",
     "version": "1.0.0",
