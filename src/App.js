@@ -7,10 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 
 import createStore from './redux/store';
+import setupInterceptors from "./redux/shared/axios/setupInterceptors";
+
 import SignIn from './components/SignIn';
 import Home from './components/Home';
 
 const store = createStore();
+setupInterceptors(store);
+
 const Stack = createStackNavigator();
 
 function App() {
