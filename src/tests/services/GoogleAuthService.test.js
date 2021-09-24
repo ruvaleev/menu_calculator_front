@@ -26,7 +26,7 @@ describe('GoogleAuthService', () => {
 
     it('returns Google request, response and promptAsync objects', () => {
       const expectedResponse = { request: 'request', response: 'response', promptAsync: 'promptAsync' }
-      expect(GoogleAuthService.authorize()).toEqual(expectedResponse);
+      expect(GoogleAuthService.authorize()).toEqual(expectedResponse); 
     })
   })
 })
