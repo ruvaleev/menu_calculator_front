@@ -25,10 +25,11 @@ describe('authenticationsReducer', () => {
       });
 
       it('sets isAuthenticated flag to true', async () => {
+        expect(store.getState().authenticationsReducer.authToken).toEqual(accessToken);
         expect(store.getState().authenticationsReducer.isAuthenticated).toEqual(true);
         expect(store.getState().authenticationsReducer.isError).toEqual(false);
         expect(store.getState().authenticationsReducer.error).toEqual(null);
-        expect(await AsyncStorage.getItem('AccessToken')).toEqual(accessToken)
+        expect(store.getState().authenticationsReducer.user.email).toEqual('correct@email.com');
       });
     });
 
@@ -41,10 +42,43 @@ describe('authenticationsReducer', () => {
       });
 
       it('sets isError flag to true and fills error', async () => {
+        expect(store.getState().authenticationsReducer.authToken).toEqual(null);
         expect(store.getState().authenticationsReducer.isAuthenticated).toEqual(false);
         expect(store.getState().authenticationsReducer.isError).toEqual(true);
         expect(store.getState().authenticationsReducer.error).toEqual(errorCode);
-        expect(await AsyncStorage.getItem('AccessToken')).toEqual(null)
+      });
+    });
+  });
+
+  describe('signInOmniauth', () => {
+    describe('when access token is accepted by backend', () => {
+      const omniauth = { access_token: accessToken, provider: 'google' };
+
+      beforeEach(async () => {
+        await store.dispatch(authenticationsSliceActions.signInOmniauth(omniauth));
+      });
+
+      it('sets retrieved from backend user to user and isAuthenticated flag to true', async () => {
+        expect(store.getState().authenticationsReducer.authToken).toEqual(accessToken);
+        expect(store.getState().authenticationsReducer.isAuthenticated).toEqual(true);
+        expect(store.getState().authenticationsReducer.isError).toEqual(false);
+        expect(store.getState().authenticationsReducer.error).toEqual(null);
+        expect(store.getState().authenticationsReducer.user.email).toEqual('correct@email.com');
+      });
+    });
+
+    describe('when access token is not accepted by backend', () => {
+      const omniauth = { access_token: 'invalidToken', provider: 'google' };
+
+      beforeEach(async () => {
+        await store.dispatch(authenticationsSliceActions.signInOmniauth(omniauth));
+      });
+
+      it('sets retrieved from backend error to error and isAuthenticated flag to false', () => {
+        expect(store.getState().authenticationsReducer.isAuthenticated).toEqual(false);
+        expect(store.getState().authenticationsReducer.isError).toEqual(true);
+        expect(store.getState().authenticationsReducer.error).toEqual('unauthorized');
+        expect(store.getState().authenticationsReducer.user).toEqual(null);
       });
     });
   });

@@ -2,18 +2,18 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import qs from 'qs';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axiosBackendInstance from '../shared/axiosBackendInstance';
+import axiosBackendInstance from '../shared/axios/axiosBackendInstance';
 
 /* eslint-disable no-unused-expressions, no-param-reassign */
 
 const initialState = {
-  isAuthenticated: false, isLoading: false, isError: false, error: null,
+  authToken: null, isAuthenticated: false, isLoading: false, isError: false, error: null, user: null
 };
 
 export const signIn = createAsyncThunk(
   'authentications/signIn',
   async (data) => {
-    await axiosBackendInstance.post(
+    const response = await axiosBackendInstance.post(
       '/auth', qs.stringify({
         user: {
           email: data.email,
@@ -21,11 +21,23 @@ export const signIn = createAsyncThunk(
         },
       }),
     )
-      .then((res) => {
-        AsyncStorage.setItem('AccessToken', res.data.access_token);
-        res
-      })
       .catch((error) => Promise.reject(new Error(error.response.data.code)));
+
+    return response.data;
+  },
+);
+
+export const signInOmniauth = createAsyncThunk(
+  'authentications/signInOmniauth',
+  async (data) => {
+    const response = await axiosBackendInstance.post(
+      '/omniauth', qs.stringify({
+        omniauth: data,
+      }),
+    )
+      .catch((error) => Promise.reject(new Error(error.response.data.code || error.response.data.error)));
+
+    return response.data;
   },
 );
 
@@ -54,11 +66,28 @@ const authenticationsSlice = createSlice({
     [signIn.pending]: (state) => {
       state.isLoading = true;
     },
-    [signIn.fulfilled]: () => ({
-      ...initialState,
-      isAuthenticated: true,
-    }),
+    [signIn.fulfilled]: (state, action) => {
+      state.authToken = action.payload.access_token
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.user = action.payload.user
+    },
     [signIn.rejected]: (state, action) => {
+      state.isAuthenticated = false;
+      state.isError = true;
+      state.isLoading = false;
+      state.error = action.error.message;
+    },
+    [signInOmniauth.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [signInOmniauth.fulfilled]: (state, action) => {
+      state.authToken = action.payload.access_token
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.user = action.payload.user
+    },
+    [signInOmniauth.rejected]: (state, action) => {
       state.isAuthenticated = false;
       state.isError = true;
       state.isLoading = false;
