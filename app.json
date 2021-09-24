@@ -2,7 +2,7 @@
   "expo": {
     "entryPoint": "./src/App.js",
     "name": "menu_calculator_front",
-    "slug": "menu_calculator_front",
+    "slug": "MenuCalculatorFront",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,13 +18,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ruvaleev.MenuCalculatorFront"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.ruvaleev.MenuCalculatorFront"
     },
     "web": {
       "favicon": "./assets/favicon.png"

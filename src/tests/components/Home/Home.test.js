@@ -10,6 +10,8 @@ import Store from '../../shared/Store';
 import * as authenticationsSliceActions from '../../../redux/slices/authentications';
 import AuthenticationsReducerGenerator from '../../shared/AuthenticationsReducerGenerator';
 
+import GoogleAuthService from '../../../services/GoogleAuthService';
+
 function renderWithStoreAndNavigator(store, navigation) {
   return render(
     <Provider store={store}>
@@ -34,6 +36,8 @@ describe('Home', () => {
       }));
 
       store.dispatch = jest.fn();
+
+      GoogleAuthService.authorize = jest.fn().mockImplementation;
       component = renderWithStoreAndNavigator(store, navigation);
     });
 

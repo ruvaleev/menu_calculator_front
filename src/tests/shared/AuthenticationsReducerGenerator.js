@@ -1,8 +1,8 @@
 function AreasReducerGenerator({
-  isAuthenticated = false, isDemo = false, isLoading = false, isError = false, error = null,
+  authToken = null, isAuthenticated = false, isLoading = false, isError = false, error = null, user = null
 }) {
   return {
-    isAuthenticated, isDemo, isLoading, isError, error,
+    authToken, isAuthenticated, isLoading, isError, error, user
   };
 }
 
