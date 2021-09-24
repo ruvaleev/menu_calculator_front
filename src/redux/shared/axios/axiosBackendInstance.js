@@ -11,4 +11,3 @@ const axiosBackendInstance = axios.create({
 });
 
 export default withMocks(axiosBackendInstance);
-// export default axiosBackendInstance;
