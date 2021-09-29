@@ -9,8 +9,11 @@ import { Text } from 'react-native';
 import createStore from './redux/store';
 import setupInterceptors from "./redux/shared/axios/setupInterceptors";
 
+import Menu from './components/Menu';
+import Receipts from './components/Receipts';
+import Settings from './components/Settings';
+import ShoppingList from './components/ShoppingList';
 import SignIn from './components/SignIn';
-import Home from './components/Home';
 
 const store = createStore();
 setupInterceptors(store);
@@ -31,9 +34,12 @@ function AppComponent() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Menu">
+          <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+          <Stack.Screen name="Receipts" component={Receipts} />
+          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="Shopping List" component={ShoppingList} />
           <Stack.Screen name="Sign In" component={SignIn} options={{ title: t('sign in') }} />
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

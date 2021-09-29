@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { logOut, resetError, signInOmniauth } from '../../redux/slices/authentications';
-import Home from './Home';
+import Menu from './Menu';
 
 const mapStateToProps = (state) => ({
   isLoading: state.authenticationsReducer.isLoading,
@@ -16,4 +16,4 @@ const mapDispatchToProps = (dispatch) => ({
   signInOmniauth: (data) => dispatch(signInOmniauth(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

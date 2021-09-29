@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import ButtonLink from '../shared/ButtonLink';
 import Errors from '../shared/Errors';
+import FooterMenu from '../shared/FooterMenu';
 import ToggleLocaleButton from '../shared/ToggleLocaleButton';
 import withLoading from '../HOC/withLoading';
 
@@ -30,7 +31,7 @@ function AuthenticationMenu({ isAuthenticated, logOut, navigation }) {
   );
 }
 
-function Home({
+function Menu({
   error, isAuthenticated, isError, logOut, navigation, resetError, signInOmniauth
 }) {
 
@@ -58,11 +59,12 @@ function Home({
       <AuthenticationMenu isAuthenticated={isAuthenticated} logOut={logOut} navigation={navigation} />
       <ToggleLocaleButton />
       <Errors isError={isError} error={error} callback={() => resetError()} />
+      <FooterMenu navigation={navigation}/>
     </View>
   );
 }
 
-export default withLoading(Home);
+export default withLoading(Menu);
 
 const styles = StyleSheet.create({
   container: {
@@ -79,7 +81,7 @@ AuthenticationMenu.propTypes = {
   navigation: PropTypes.object.isRequired
 };
 
-Home.propTypes = {
+Menu.propTypes = {
   error: PropTypes.string,
   isError: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
@@ -89,6 +91,6 @@ Home.propTypes = {
   signInOmniauth: PropTypes.func.isRequired
 };
 
-Home.defaultProps = {
+Menu.defaultProps = {
   error: null,
 };

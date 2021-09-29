@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import i18n from 'i18next';
 
-import Home from '../../../components/Home';
+import Menu from '../../../components/Menu';
 import Store from '../../shared/Store';
 import * as authenticationsSliceActions from '../../../redux/slices/authentications';
 import AuthenticationsReducerGenerator from '../../shared/AuthenticationsReducerGenerator';
@@ -15,12 +15,12 @@ import GoogleAuthService from '../../../services/GoogleAuthService';
 function renderWithStoreAndNavigator(store, navigation) {
   return render(
     <Provider store={store}>
-      <Home navigation={navigation} />
+      <Menu navigation={navigation} />
     </Provider>
   );
 }
 
-describe('Home', () => {
+describe('Menu', () => {
   const mockStore = configureStore([]);
   const navigate = jest.fn();
   const navigation = { navigate: navigate };
@@ -39,6 +39,10 @@ describe('Home', () => {
 
       GoogleAuthService.authorize = jest.fn().mockImplementation;
       component = renderWithStoreAndNavigator(store, navigation);
+    });
+
+    it('correctly renders footer menu', () => {
+      expect(component.getByTestId('FooterMenu')).toBeTruthy();
     });
 
     it('dispatches logOut action on log out link click', () => {
