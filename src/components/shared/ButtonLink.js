@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-function ButtonLink({ callback, title }) {
+function ButtonLink(props) {
   return (
-    <TouchableOpacity onPress={callback} style={styles.button}>
-      <Text style={styles.text} >{title}</Text>
+    <TouchableOpacity onPress={props.callback} style={styles.button} {...props} >
+      <Text style={styles.text} >{props.title}</Text>
     </TouchableOpacity>
   );
 }
